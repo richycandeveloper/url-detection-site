@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PhishGuard | Phishing URL Detection Demo</title>
+<meta name="description" content="PhishGuard: a final-year project demonstrating phishing URL analysis. Case study: MTN Enugu.">
+<link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- ============ LANDING PAGE ============ -->
+<div id="landing">
+  <header class="site-nav" id="siteNav">
+    <a class="brand" href="#home"><img src="assets/icons/logo.svg" alt="" width="28" height="28">PhishGuard</a>
+    <button class="icon-btn menu-btn" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#home">Home</a><a href="#features">Features</a><a href="#how">How It Works</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <a class="btn primary sm" href="#/app/scanner">Open dashboard</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Detect Phishing Threats Before They Strike.</h1>
+      <p>One careless click on a fake login page can expose passwords, PINs and OTPs. PhishGuard checks a link for known warning signs before you open it, and explains every finding in plain language.</p>
+      <div class="btn-row">
+        <a class="btn primary lg" href="#/app/scanner">Scan a URL</a>
+        <a class="btn ghost lg" href="#/app/safety">Learn About Phishing</a>
+      </div>
+    </div>
+    <!-- CSS-only illustration of a scan result -->
+    <div class="hero-card" aria-hidden="true">
+      <div class="mock-bar"><i></i><i></i><i></i></div>
+      <div class="mock-url">http://mtn-verify-account.example/login</div>
+      <div class="mock-score"><b>78</b><span>High-risk URL</span></div>
+      <ul><li>Uses HTTP, not HTTPS</li><li>Contains "verify" and "login"</li><li>Brand name inside an unofficial domain</li></ul>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <h2 class="reveal">What PhishGuard does</h2>
+    <div class="grid4">
+      <article class="card reveal"><h3>URL analysis</h3><p>Scores a link from 0 to 100 using transparent, rule-based checks.</p></article>
+      <article class="card reveal"><h3>Phishing warnings</h3><p>Lists each triggered indicator and what it means for you.</p></article>
+      <article class="card reveal"><h3>Threat reporting</h3><p>Record suspicious links with a reason and notes, stored on your device.</p></article>
+      <article class="card reveal"><h3>Security awareness</h3><p>A Safety Center on spotting fake pages, SMS scams and OTP theft.</p></article>
+    </div>
+  </section>
+
+  <section class="section alt" id="how">
+    <h2 class="reveal">How detection works</h2>
+    <ol class="steps">
+      <li class="reveal"><b>Paste a link</b><span>Enter any web address. It is validated but never opened.</span></li>
+      <li class="reveal"><b>Indicators are checked</b><span>The URL is split into parts and tested against documented rules.</span></li>
+      <li class="reveal"><b>Review the result</b><span>See the score, the reasons and a recommended action.</span></li>
+    </ol>
+  </section>
+
+  <section class="section" id="about">
+    <div class="split reveal">
+      <div>
+        <h2>Why it matters for telecoms</h2>
+        <p>Telecommunications customers are frequent targets of SMS and web phishing that imitates the network brand, offers fake promos or demands SIM, PIN and OTP "verification". This project studies those patterns using MTN Enugu as the case study.</p>
+        <p>This is an independent academic prototype. It is not affiliated with, and has no integration with, MTN.</p>
+      </div>
+      <div class="note"><b>Prototype limits.</b> The detector is rule-based, not a trained AI model. It does not query live threat intelligence or inspect destination sites. Production use needs a backend, an evaluated model and authorized data sources.</div>
+    </div>
+  </section>
+
+  <section class="section alt" id="contact">
+    <div class="reveal center"><h2>Contact</h2><p>Final-year Computer Science project. For questions, contact the project author through your institution's department.</p><a class="btn primary" href="#/app/overview">Go to dashboard</a></div>
+  </section>
+
+  <footer class="footer">
+    <div><b>PhishGuard</b><p>Design and Implementation of an AI-Powered Real-Time Phishing Detection and Prevention System (A Case Study of MTN Enugu).</p></div>
+    <nav aria-label="Footer"><a href="#features">Features</a><a href="#how">How It Works</a><a href="#/app/safety">Safety Center</a><a href="#/app/scanner">URL Scanner</a></nav>
+  </footer>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div id="app" class="app" hidden>
+  <aside class="sidebar" id="sidebar" aria-label="Dashboard navigation">
+    <a class="brand light" href="#home"><img src="assets/icons/logo.svg" alt="" width="28" height="28"><span class="lbl">PhishGuard</span></a>
+    <nav id="sideNav">
+      <a href="#/app/overview" data-view="overview"><i>▦</i><span class="lbl">Overview</span></a>
+      <a href="#/app/scanner" data-view="scanner"><i>⌕</i><span class="lbl">URL Scanner</span></a>
+      <a href="#/app/history" data-view="history"><i>◷</i><span class="lbl">Scan History</span></a>
+      <a href="#/app/reports" data-view="reports"><i>⚑</i><span class="lbl">Threat Reports</span></a>
+      <a href="#/app/alerts" data-view="alerts"><i>!</i><span class="lbl">Security Alerts</span></a>
+      <a href="#/app/safety" data-view="safety"><i>✓</i><span class="lbl">Safety Center</span></a>
+      <a href="#/app/settings" data-view="settings"><i>⚙</i><span class="lbl">Settings</span></a>
+    </nav>
+    <button class="collapse-btn" id="collapseBtn" aria-label="Collapse sidebar"><i>«</i><span class="lbl">Collapse</span></button>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn" id="sideToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <h1 id="pageTitle">Overview</h1>
+      <div class="top-right">
+        <a class="icon-btn bell" href="#/app/alerts" aria-label="Security alerts">🔔<em id="bellDot" hidden></em></a>
+        <div class="avatar" title="User profile placeholder">U</div>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- Overview -->
+      <section data-panel="overview">
+        <div class="stats" id="stats"></div>
+        <div class="two">
+          <div class="card"><h2>Recent scans</h2><div class="tbl-wrap"><table><thead><tr><th>URL</th><th>Score</th><th>Result</th></tr></thead><tbody id="recentBody"></tbody></table></div></div>
+          <div class="card"><h2>Risk summary</h2><div id="riskSummary"></div>
+            <h2 class="mt">Quick actions</h2>
+            <div class="btn-row"><a class="btn primary" href="#/app/scanner">Scan a URL</a><a class="btn" href="#/app/reports">Report a URL</a><a class="btn" href="#/app/safety">Safety tips</a></div></div>
+        </div>
+      </section>
+
+      <!-- Scanner -->
+      <section data-panel="scanner" hidden>
+        <div class="card">
+          <h2>Analyze a URL</h2>
+          <form id="scanForm" novalidate>
+            <label for="scanUrl">Website address</label>
+            <div class="inline"><input id="scanUrl" type="text" inputmode="url" autocomplete="off" placeholder="https://example.com/login" aria-describedby="scanErr"><button class="btn primary" type="submit">Analyze URL</button></div>
+            <p class="err" id="scanErr" role="alert"></p>
+          </form>
+          <p class="note">This frontend demonstration uses rule-based checks only. It does not contact live threat-intelligence services or inspect the destination website, and it never opens the link. A low score does not prove a site is safe.</p>
+        </div>
+        <div class="card" id="scanResult" hidden></div>
+      </section>
+
+      <!-- History -->
+      <section data-panel="history" hidden>
+        <div class="card">
+          <div class="toolbar">
+            <input id="histSearch" type="search" placeholder="Search by URL" aria-label="Search scan history">
+            <select id="histFilter" aria-label="Filter by classification"><option value="all">All results</option><option value="low">Low risk signals</option><option value="suspicious">Suspicious</option><option value="high">High-risk</option></select>
+            <select id="histSort" aria-label="Sort by date"><option value="new">Newest first</option><option value="old">Oldest first</option></select>
+            <button class="btn danger" id="clearHist">Clear history</button>
+          </div>
+          <div class="tbl-wrap"><table><thead><tr><th>URL</th><th>Date and time</th><th>Score</th><th>Classification</th><th>Indicators</th><th>Action</th></tr></thead><tbody id="histBody"></tbody></table></div>
+        </div>
+      </section>
+
+      <!-- Reports -->
+      <section data-panel="reports" hidden>
+        <div class="two">
+          <div class="card"><h2>Report a suspicious URL</h2>
+            <form id="reportForm" novalidate>
+              <label for="repUrl">URL</label><input id="repUrl" type="text" autocomplete="off">
+              <label for="repReason">Reason</label>
+              <select id="repReason"><option value="">Select a reason</option><option>Fake login page</option><option>SMS or message scam</option><option>Impersonates a telecom brand</option><option>Asks for OTP or PIN</option><option>Other</option></select>
+              <label for="repNotes">Additional notes</label><textarea id="repNotes" rows="4" maxlength="500"></textarea>
+              <p class="err" id="repErr" role="alert"></p>
+              <button class="btn primary" type="submit">Save report</button>
+            </form>
+            <p class="note">Reports are saved only in this browser. They are not sent to MTN or any security team.</p>
+          </div>
+          <div class="card"><h2>Submitted reports</h2><input id="repSearch" type="search" placeholder="Search reports" aria-label="Search reports">
+            <div class="tbl-wrap"><table><thead><tr><th>URL</th><th>Reason</th><th>Date</th><th>Status</th></tr></thead><tbody id="repBody"></tbody></table></div></div>
+        </div>
+      </section>
+
+      <!-- Alerts -->
+      <section data-panel="alerts" hidden>
+        <div class="card">
+          <p class="note">These are simulated alerts created by the demo scanner in this browser. They are not live threat intelligence.</p>
+          <div class="toolbar"><select id="alertFilter" aria-label="Filter by severity"><option value="all">All severities</option><option value="high">High</option><option value="suspicious">Suspicious</option></select><button class="btn" id="readAll">Mark all as read</button></div>
+          <div id="alertList"></div>
+        </div>
+      </section>
+
+      <!-- Safety Center -->
+      <section data-panel="safety" hidden>
+        <div class="card" id="safetyList"></div>
+      </section>
+
+      <!-- Settings -->
+      <section data-panel="settings" hidden>
+        <div class="card"><h2>Preferences</h2>
+          <label class="switch"><input type="checkbox" id="setDark"> Dark theme</label>
+          <label class="switch"><input type="checkbox" id="setNotify"> Show a message when a scan finds a suspicious or high-risk URL</label>
+        </div>
+        <div class="card"><h2>Data management</h2><p>Scans, reports, alerts and preferences live in this browser's localStorage.</p><button class="btn danger" id="clearAll">Clear local demonstration data</button></div>
+        <div class="card"><h2>Limitations</h2><ul class="plain"><li>Detection is rule-based, not a trained AI model.</li><li>No live threat intelligence, WHOIS, or page inspection.</li><li>No backend, accounts, or MTN integration.</li><li>Data is per-browser and can be cleared at any time.</li></ul></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<dialog id="dlg"><div id="dlgBody"></div><div class="btn-row end" id="dlgBtns"></div></dialog>
+<div id="toasts" aria-live="polite"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
